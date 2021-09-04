@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -7,6 +8,8 @@ using PDollarGestureRecognizer;
 
 public class RuneMaker : MonoBehaviour
 {
+    private LineRenderer lineRenderer;
+    
     public XRNode inputSource;
     public InputHelpers.Button inputButton;
     public float inputThreshold = 0.1f;
@@ -18,58 +21,70 @@ public class RuneMaker : MonoBehaviour
     public Transform pointSource;
     public float newPositionThresholdDistance = 0.1f;
     public List<Vector3> pointCloudList = new List<Vector3>();
-    
+
+    private void Start()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+    }
+
     private void Update()
     {
         InputHelpers.IsPressed(InputDevices.GetDeviceAtXRNode(inputSource), inputButton, out bool isPressed, inputThreshold);
+
+        Vector3 newPosition = pointSource.position;
         
         if (!isMoving && isPressed)
         {
-            StartMovement();
+            StartMovement(newPosition);
         }
         else if(isMoving && !isPressed)
         {
-            EndMovement();
+            EndMovement(newPosition);
         }
         else if (isMoving && isPressed)
         {
-            UpdateMovement();
+            UpdateMovement(newPosition);
         }
     }
 
-    private void StartMovement()
+    private void StartMovement(Vector3 position)
     {
         isMoving = true;
         pointCloudList.Clear();
+        lineRenderer.positionCount = 1;
         pointCloudList.Add(pointSource.position);
-        CreateDebugCube(pointSource.position);
-        //Debug.Log("Start movement");
+        lineRenderer.SetPosition(0, position);
+        CreateDebugCube(position);
     }
 
-    private void EndMovement()
+    private void EndMovement(Vector3 position)
     {
         isMoving = false;
-        
-        //Debug.Log("End movement");
     }
 
-    private void UpdateMovement()
+    private void UpdateMovement(Vector3 position)
     {
-
         Vector3 lastPoint = pointCloudList[pointCloudList.Count - 1];
 
-        Debug.Log("Updating movement: " + Vector3.Distance(pointSource.position, lastPoint));
+        //Debug.Log("Updating movement: " + Vector3.Distance(pointSource.position, lastPoint));
         
         if (Vector3.Distance(pointSource.position, lastPoint) > newPositionThresholdDistance)
         {
             pointCloudList.Add(pointSource.position);
-            CreateDebugCube(pointSource.position);
-            Debug.Log("Create Cube");
+            lineRenderer.positionCount = pointCloudList.Count;
+            lineRenderer.SetPosition(pointCloudList.Count - 1, position);
+            CreateDebugCube(position);
+        }
+        else
+        {
+            lineRenderer.SetPosition(pointCloudList.Count - 1, position);
         }
     }
 
     private void CreateDebugCube(Vector3 position)
     {
+        return;
+        
         if (debugPrefab)
         {
             Destroy(Instantiate(debugPrefab, pointSource.position, quaternion.identity), 3);
