@@ -18,7 +18,7 @@ public class RuneMaker : MonoBehaviour
 
     public GameObject debugPrefab;
     
-    public Transform pointSource;
+    public Transform trackedTransform;
     public float newPositionThresholdDistance = 0.1f;
     public List<Vector3> pointCloudList = new List<Vector3>();
 
@@ -31,19 +31,19 @@ public class RuneMaker : MonoBehaviour
     {
         InputHelpers.IsPressed(InputDevices.GetDeviceAtXRNode(inputSource), inputButton, out bool isPressed, inputThreshold);
 
-        Vector3 newPosition = pointSource.position;
+        Vector3 trackedPosition = trackedTransform.position;
         
         if (!isMoving && isPressed)
         {
-            StartMovement(newPosition);
+            StartMovement(trackedPosition);
         }
         else if(isMoving && !isPressed)
         {
-            EndMovement(newPosition);
+            EndMovement(trackedPosition);
         }
         else if (isMoving && isPressed)
         {
-            UpdateMovement(newPosition);
+            UpdateMovement(trackedPosition);
         }
     }
 
@@ -52,7 +52,7 @@ public class RuneMaker : MonoBehaviour
         isMoving = true;
         pointCloudList.Clear();
         lineRenderer.positionCount = 1;
-        pointCloudList.Add(pointSource.position);
+        pointCloudList.Add(trackedTransform.position);
         lineRenderer.SetPosition(0, position);
         CreateDebugCube(position);
     }
@@ -68,15 +68,16 @@ public class RuneMaker : MonoBehaviour
 
         //Debug.Log("Updating movement: " + Vector3.Distance(pointSource.position, lastPoint));
         
-        if (Vector3.Distance(pointSource.position, lastPoint) > newPositionThresholdDistance)
+        if (Vector3.Distance(trackedTransform.position, lastPoint) > newPositionThresholdDistance)
         {
-            pointCloudList.Add(pointSource.position);
+            pointCloudList.Add(trackedTransform.position);
             lineRenderer.positionCount = pointCloudList.Count;
             lineRenderer.SetPosition(pointCloudList.Count - 1, position);
             CreateDebugCube(position);
         }
         else
         {
+            lineRenderer.positionCount = pointCloudList.Count;
             lineRenderer.SetPosition(pointCloudList.Count - 1, position);
         }
     }
@@ -87,7 +88,7 @@ public class RuneMaker : MonoBehaviour
         
         if (debugPrefab)
         {
-            Destroy(Instantiate(debugPrefab, pointSource.position, quaternion.identity), 3);
+            Destroy(Instantiate(debugPrefab, trackedTransform.position, quaternion.identity), 3);
         }
     }
 }
