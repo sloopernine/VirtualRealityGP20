@@ -344,8 +344,8 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 772e63db-ebf1-42c3-8f9b-15d53a96c982
-      m_Path: <Mouse>/rightButton
+      m_Id: 2a805f01-dae7-4791-a43a-bf2e899f8c1d
+      m_Path: <Keyboard>/space
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -370,7 +370,6 @@ MonoBehaviour:
   currentSpell: 0
   fireBallPrefab: {fileID: 6356653243117928251, guid: 155706fdc5de6f947a12a2964a33e0ed, type: 3}
   RockPrefab: {fileID: 2650631540182164737, guid: 9a10b9e458aa0ef45834813c9440e3a1, type: 3}
-  teleportRange: 0
 --- !u!1 &8047032235035166666
 GameObject:
   m_ObjectHideFlags: 0

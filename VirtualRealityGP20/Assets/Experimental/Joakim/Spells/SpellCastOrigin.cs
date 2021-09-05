@@ -23,7 +23,6 @@ public class SpellCastOrigin : MonoBehaviour
 
     public GameObject fireBallPrefab;
     public GameObject RockPrefab;
-    public float teleportRange;
 
 
     private void OnEnable()
