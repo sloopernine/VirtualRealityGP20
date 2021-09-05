@@ -486,6 +486,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 963937194}
     - target: {fileID: 4775774716230496383, guid: 9fec2b606980c114389bc16d9f1a57d8, type: 3}
+      propertyPath: trainingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775774716230496383, guid: 9fec2b606980c114389bc16d9f1a57d8, type: 3}
+      propertyPath: newGestureName
+      value: Circle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775774716230496383, guid: 9fec2b606980c114389bc16d9f1a57d8, type: 3}
       propertyPath: trackedTransform
       value: 
       objectReference: {fileID: 963937194}

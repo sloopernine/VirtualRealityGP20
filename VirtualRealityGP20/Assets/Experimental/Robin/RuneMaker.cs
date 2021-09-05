@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using PDollarGestureRecognizer;
+using System.IO;
 
 public class RuneMaker : MonoBehaviour
 {
@@ -17,7 +18,10 @@ public class RuneMaker : MonoBehaviour
     private bool isMoving;
 
     public GameObject debugPrefab;
-    
+    public bool trainingMode;
+    public string newGestureName;
+    private List<Gesture> trainingSet = new List<Gesture>();
+
     public Transform trackedTransform;
     public float newPositionThresholdDistance = 0.1f;
     public List<Vector3> pointCloudList = new List<Vector3>();
@@ -25,6 +29,12 @@ public class RuneMaker : MonoBehaviour
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
+
+        string[] gestureFiles = Directory.GetFiles(Application.persistentDataPath, "*.xml");
+        foreach (var item in gestureFiles)
+        {
+            trainingSet.Add(GestureIO.ReadGestureFromFile(item));
+        }
     }
 
     private void Update()
@@ -60,6 +70,30 @@ public class RuneMaker : MonoBehaviour
     private void EndMovement(Vector3 position)
     {
         isMoving = false;
+
+        Point[] pointArray = new Point[pointCloudList.Count];
+
+        for (int i = 0; i < pointArray.Length; i++)
+        {
+            Vector2 screenPoint = Camera.main.WorldToScreenPoint(pointCloudList[i]);
+            pointArray[i] = new Point(screenPoint.x, screenPoint.y, 0);
+        }
+
+        Gesture newGesture = new Gesture(pointArray);
+
+        if (trainingMode)
+        {
+            newGesture.Name = newGestureName;
+            trainingSet.Add(newGesture);
+
+            string path = Application.persistentDataPath + "/" + newGestureName + ".xml";
+            GestureIO.WriteGesture(pointArray, newGestureName, path);
+        }
+        else
+        {
+            Result result = PointCloudRecognizer.Classify(newGesture, trainingSet.ToArray());
+            Debug.Log(result.GestureClass + result.Score);
+        }
     }
 
     private void UpdateMovement(Vector3 position)
