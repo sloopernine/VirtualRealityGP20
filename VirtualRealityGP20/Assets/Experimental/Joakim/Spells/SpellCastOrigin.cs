@@ -2,8 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
+
 
 
 public enum Spell
@@ -16,42 +15,14 @@ public enum Spell
 
 public class SpellCastOrigin : MonoBehaviour
 {
-    public InputAction castAction;
-    public InputAction swapCurrentSpellAction;
-
-    public Spell currentSpell;
 
     public GameObject fireBallPrefab;
     public GameObject RockPrefab;
 
+    public Spell currentSpell;
 
-    private void OnEnable()
-    {
-        castAction.Enable();
-        swapCurrentSpellAction.Enable();
-    }
 
-    private void OnDisable()
-    {
-        castAction.Disable();
-        swapCurrentSpellAction.Disable();
-    }
-
-    private void Awake()
-    {
-        castAction.performed += ctx =>
-        {
-            CastSpell();
-        };
-
-        swapCurrentSpellAction.performed += ctx =>
-        {
-            SwapSpell();
-        };
-
-    }
-
-    public void CastSpell()
+    public void CastSpell(Spell currentSpell)
     {
         switch (currentSpell)
         {
@@ -70,16 +41,6 @@ public class SpellCastOrigin : MonoBehaviour
                 break;
         }
     }
-    private void SwapSpell()
-    {
-        currentSpell++;
-        int amountOfSpells = System.Enum.GetValues(typeof(Spell)).Length;
-        int spellIndex = (int)currentSpell;
-        spellIndex = spellIndex % amountOfSpells;
-        currentSpell = (Spell)spellIndex;
-        
-        print(System.Enum.GetName(typeof(Spell), currentSpell) + " is ready");
-    }
 
     private void Fireball()
     {
@@ -94,7 +55,7 @@ public class SpellCastOrigin : MonoBehaviour
 
         if (Physics.Raycast(transform.position, transform.forward, out hit, 1000f))
         {
-            Debug.DrawRay(transform.position, transform.forward * 1000f, Color.red, 3f);
+            Debug.DrawLine(transform.position, transform.forward * 1000f, Color.red, 3f);
 
             Vector3 newPosition = new Vector3(hit.point.x, transform.position.y, hit.point.z);
             transform.position = newPosition;
