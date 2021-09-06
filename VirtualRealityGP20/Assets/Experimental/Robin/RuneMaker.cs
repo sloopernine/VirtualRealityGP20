@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 using PDollarGestureRecognizer;
 using System.IO;
@@ -8,8 +7,7 @@ using Valve.VR;
 public class RuneMaker : MonoBehaviour
 {
     private LineRenderer lineRenderer;
-    private bool isMoving;
-    
+
     public SteamVR_Input_Sources handType;
     public SteamVR_Action_Boolean grabAction;
 
@@ -116,11 +114,6 @@ public class RuneMaker : MonoBehaviour
     
     private void CreateDebugCube(Vector3 position)
     {
-        return;
-        
-        if (debugPrefab)
-        {
-            Destroy(Instantiate(debugPrefab, trackedTransform.position, quaternion.identity), 3);
-        }
+
     }
 }
