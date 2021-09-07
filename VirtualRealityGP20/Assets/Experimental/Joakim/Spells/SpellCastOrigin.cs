@@ -60,8 +60,7 @@ public class SpellCastOrigin : MonoBehaviour
     private void CreateRock(Vector3 position)
     {
         GameObject obj = Instantiate(RockPrefab);
-        obj.transform.position = transform.position;
-        obj.transform.LookAt(transform.position * 2 - position);
-        obj.transform.position = transform.position + transform.forward * 1.5f + transform.up;
+        obj.transform.position = transform.position + transform.position - position + transform.up;
+        
     }
 }
