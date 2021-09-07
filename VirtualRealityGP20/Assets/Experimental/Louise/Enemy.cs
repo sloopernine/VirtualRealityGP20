@@ -14,8 +14,6 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] AudioClip spawnSound;
     [SerializeField] AudioClip deathSound;
     private AudioSource audioSource;
-    private bool isDead;
-
 
     private void Start()
     {
@@ -26,7 +24,7 @@ public abstract class Enemy : MonoBehaviour
 
         currentHealth = maxHealth;
 
-        rigidbody.AddForce(-Vector3.forward * speed);
+        rigidbody.AddForce(transform.forward * speed);
     }
 
     public void TakeDamage(float damage)
@@ -40,6 +38,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void Die()
     {
+        audioSource.PlayOneShot(deathSound);
         Destroy(gameObject);
     }
 }
