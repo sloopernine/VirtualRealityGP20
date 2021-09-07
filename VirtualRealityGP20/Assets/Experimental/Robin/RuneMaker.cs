@@ -76,6 +76,12 @@ public class RuneMaker : MonoBehaviour
         }
 
         Gesture newGesture = new Gesture(pointArray);
+
+        // Prevent to few points to be classified, throws error if few
+        if (pointCloudList.Count <= 2)
+        {
+            return;
+        }
         
         if (trainingMode)
         {
