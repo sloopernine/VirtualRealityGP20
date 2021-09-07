@@ -26,6 +26,8 @@ public class RuneMaker : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
         
+        LoadGestures();
+        
         string[] gestureFiles = Directory.GetFiles(Application.persistentDataPath, "*.xml");
         foreach (var item in gestureFiles)
         {
@@ -82,8 +84,10 @@ public class RuneMaker : MonoBehaviour
             newGesture.Name = newGestureName;
             trainingSet.Add(newGesture);
             
-            string path = Application.persistentDataPath + "/" + newGestureName + ".xml";
-            GestureIO.WriteGesture(pointArray, newGestureName, path);
+            // string path = Application.persistentDataPath + "/" + newGestureName + ".xml";
+            // GestureIO.WriteGesture(pointArray, newGestureName, path);
+            
+            SaveGesture(newGestureName, pointArray);
         }
         else
         {
@@ -110,6 +114,21 @@ public class RuneMaker : MonoBehaviour
             lineRenderer.positionCount = pointCloudList.Count;
             lineRenderer.SetPosition(pointCloudList.Count - 1, position);
         }
+    }
+
+    private void LoadGestures()
+    {
+        TextAsset[] gesturesXml = Resources.LoadAll<TextAsset>("GestureSet/");
+        foreach (TextAsset gestureXml in gesturesXml)
+        {
+            trainingSet.Add(GestureIO.ReadGestureFromXML(gestureXml.text));
+        }
+    }
+
+    private void SaveGesture(string gestureName, Point[] points)
+    {
+        string path = Application.dataPath + "/Resources/" + gestureName + ".xml";
+        GestureIO.WriteGesture(points, gestureName, path);
     }
     
     private void CreateDebugCube(Vector3 position)
