@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.virtualrealitygp20.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\sloop\\Documents\\GitHub\\VirtualRealityGP20\\VirtualRealityGP20\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "C:\\Users\\johan\\Documents\\GitHub\\VirtualRealityGP20\\VirtualRealityGP20\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "VirtualRealityGP20 [Testing]"
