@@ -88,7 +88,7 @@ public class RuneMaker : MonoBehaviour
         else
         {
             Result result = PointCloudRecognizer.Classify(newGesture, trainingSet.ToArray());
-            Debug.Log(result.GestureClass + result.Score);
+            Debug.Log(result.GestureClass + " " + result.Score);
         }
     }
     
