@@ -46,8 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a618ec4f22aa2b42a4ca30e0c11fccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelFBX: {fileID: 1781821686185262055}
-  maxHealth: 100
+  maxHealth: 300
   currentHealth: 100
   speed: 800
   spawnSound: {fileID: 8300000, guid: 918ee1b51fd32d748a66d520586569ba, type: 3}
@@ -201,11 +200,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3222e566147c0944cbf690d13b3290b5, type: 3}
---- !u!1 &1781821686185262055 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2991637419493582367, guid: 3222e566147c0944cbf690d13b3290b5, type: 3}
-  m_PrefabInstance: {fileID: 3548312056090762744}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1781821686185262052 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2991637419493582364, guid: 3222e566147c0944cbf690d13b3290b5, type: 3}

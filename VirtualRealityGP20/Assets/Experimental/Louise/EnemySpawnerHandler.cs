@@ -9,7 +9,7 @@ public class EnemyWave
 {
     public int numberOfSpawners;
     public int numberOfEnemies;
-    public GameObject enemy;
+    public Enemy enemy;
 }
 
 public class EnemySpawnerHandler : MonoBehaviour
@@ -58,7 +58,7 @@ public class EnemySpawnerHandler : MonoBehaviour
         }
     }
 
-    public void SetupWave(GameObject enemy, int spawnNumber)
+    public void SetupWave(Enemy enemy, int spawnNumber)
     {      
         foreach(EnemySpawner spawner in currentSpawners)
         {

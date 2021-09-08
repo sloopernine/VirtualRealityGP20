@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("Enemies")]
-    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] Enemy enemyPrefab;
     [SerializeField] int numberToSpawn;
 
     [Header("Spawner")]
@@ -30,18 +30,13 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void SpawnEnemies(GameObject enemyType, int spawnNumber)
+    private void SpawnEnemies(Enemy enemyType, int spawnNumber)
     {
-        if (enemyType.GetComponent<Enemy>() == null)
-        {
-            Debug.LogWarning("You added something else than an enemy to the Enemy Spawner");
-        }
-
         for (int i = 0; i < spawnNumber; i++)
         {
             Vector3 spawnPostion = RandomPositionOnLine();
             Quaternion spawnRotation = CalculateRotation();
-            Instantiate(enemyType, spawnPostion, spawnRotation);
+            Instantiate(enemyType.gameObject, spawnPostion, spawnRotation);
         }
 
         spawnEnemies = false;
@@ -53,9 +48,9 @@ public class EnemySpawner : MonoBehaviour
         float yRange = endLine.position.y - startLine.position.y;
         float zRange = endLine.position.z - startLine.position.z;
 
-        Vector3 spawnPosition = new Vector3(startLine.position.x + (xRange * UnityEngine.Random.value),
-                                            startLine.position.y + (yRange * UnityEngine.Random.value),
-                                            startLine.position.z + (zRange * UnityEngine.Random.value));
+        Vector3 spawnPosition = new Vector3(startLine.position.x + (xRange * Random.value),
+                                            startLine.position.y + (yRange * Random.value),
+                                            startLine.position.z + (zRange * Random.value));
 
         return spawnPosition;
     }
@@ -80,7 +75,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public void AddNewEnemies(GameObject newEnemy, int spawnNumber)
+    public void AddNewEnemies(Enemy newEnemy, int spawnNumber)
     {
         enemyPrefab = newEnemy;
         numberToSpawn = spawnNumber;

@@ -9,6 +9,6 @@ public class HellHound : Enemy
         if (collision.gameObject.tag != "Enemy")
         {
             TakeDamage(50);
-        }       
+        }
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
-    [SerializeField] GameObject modelFBX;
     private Rigidbody rigidbody;
 
     [SerializeField] float maxHealth;
