@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class CollisionSoundController : MonoBehaviour
 {
-    public static CollisionSoundController instance;
+    private static CollisionSoundController instance;
+    public static CollisionSoundController Instance { get => instance;}
 
     //public CollisionSoundList sounds;
-    
+
     [Tooltip("The max number of sounds (AudioSources) allowed to play. This many Audiosources are created in Awake")]
     [SerializeField] int voicePoolSize = 24;
 

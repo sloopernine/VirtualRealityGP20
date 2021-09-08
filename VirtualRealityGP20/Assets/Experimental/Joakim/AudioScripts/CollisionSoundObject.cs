@@ -31,7 +31,7 @@ public class CollisionSoundObject : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (CollisionSoundController.instance == null)
+        if (CollisionSoundController.Instance == null)
         {
             return;
         }
@@ -42,14 +42,14 @@ public class CollisionSoundObject : MonoBehaviour
             CollisionSoundObject collisionSoundObject = SoundObjects[collider];
 
             float volume = CalculateImpactVolume(collision);
-            if (volume < CollisionSoundController.instance.MinCollisionVolume)
+            if (volume < CollisionSoundController.Instance.MinCollisionVolume)
             {
                 return;
             }
       
             Vector3 position = collision.GetContact(0).point;
-            CollisionSoundController.instance.Play(material, position, volume);
-            CollisionSoundController.instance.Play(collisionSoundObject.material, position, volume);
+            CollisionSoundController.Instance.Play(material, position, volume);
+            CollisionSoundController.Instance.Play(collisionSoundObject.material, position, volume);
 
         }
     }
@@ -73,7 +73,7 @@ public class CollisionSoundObject : MonoBehaviour
     /// <returns>The correct value.</returns>
     public static float CubicEaseOut(float velocity, float startingValue = 0, float changeInValue = 1)
     {
-        return changeInValue * ((velocity = velocity / CollisionSoundController.instance.MaxCollisionVelocity - 1) * velocity * velocity + 1) + startingValue;
+        return changeInValue * ((velocity = velocity / CollisionSoundController.Instance.MaxCollisionVelocity - 1) * velocity * velocity + 1) + startingValue;
     }
 
 }
