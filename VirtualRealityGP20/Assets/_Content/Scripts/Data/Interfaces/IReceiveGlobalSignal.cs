@@ -6,6 +6,6 @@ namespace Data.Interfaces
 {
     public interface IReceiveGlobalSignal
     {
-        public void ReceiveGlobal(Enum eventState, GlobalSignalBaseData globalSignalData = null);
+        public void ReceiveGlobal(GlobalEvent eventState, GlobalSignalBaseData globalSignalData = null);
     }
 }

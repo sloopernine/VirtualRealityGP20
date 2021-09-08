@@ -6,6 +6,6 @@ namespace Data.Interfaces
 {
     public interface ISendGlobalSignal
     {
-        public void SendGlobal(Enum eventState, GlobalSignalBaseData globalSignalData = null);
+        public void SendGlobal(GlobalEvent eventState, GlobalSignalBaseData globalSignalData = null);
     }
 }
