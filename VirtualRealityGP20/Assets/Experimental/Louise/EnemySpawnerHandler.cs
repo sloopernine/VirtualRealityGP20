@@ -2,16 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//Take enemy wave scriptable object later, with a order of waves
-
-[System.Serializable]
-public class EnemyWave
-{
-    public int numberOfSpawners;
-    public int numberOfEnemies;
-    public Enemy enemy;
-}
-
 public class EnemySpawnerHandler : MonoBehaviour
 {
     public EnemyWave testWave;
