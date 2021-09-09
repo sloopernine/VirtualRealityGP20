@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour, ITakeDamage
 {
     private Rigidbody rigidbody;
 
@@ -32,7 +32,6 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
@@ -40,6 +39,8 @@ public abstract class Enemy : MonoBehaviour
         {
             Die();
         }
+
+        //Visuall effect?
     }
 
     public void Die()
