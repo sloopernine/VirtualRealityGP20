@@ -112,7 +112,6 @@ GameObject:
   - component: {fileID: 6297872025127136621}
   - component: {fileID: 6281301762962851068}
   - component: {fileID: 2905775703775072420}
-  - component: {fileID: 2255133733080826948}
   - component: {fileID: 6396003303968828179}
   - component: {fileID: 2887287181795608203}
   m_Layer: 0
@@ -220,21 +219,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6281301762962851065}
   m_Enabled: 1
---- !u!114 &2255133733080826948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6281301762962851065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3a0cf10d3f728546ae99f05cac160df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fireBallPrefab: {fileID: 6356653243117928251, guid: 155706fdc5de6f947a12a2964a33e0ed, type: 3}
-  RockPrefab: {fileID: 2650631540182164737, guid: 9a10b9e458aa0ef45834813c9440e3a1, type: 3}
-  currentSpell: 0
 --- !u!114 &6396003303968828179
 MonoBehaviour:
   m_ObjectHideFlags: 0
