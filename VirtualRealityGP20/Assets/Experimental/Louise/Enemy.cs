@@ -14,6 +14,8 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] AudioClip deathSound;
     private AudioSource audioSource;
 
+    public bool useMovement;
+
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -23,7 +25,15 @@ public abstract class Enemy : MonoBehaviour
 
         currentHealth = maxHealth;
 
-        rigidbody.AddForce(transform.forward * speed);
+        if (useMovement)
+        {
+            Movement();
+        }
+        else
+        {
+            rigidbody.AddForce(transform.forward * speed);
+        } 
+
     }
 
     public void TakeDamage(float damage)
@@ -39,5 +49,10 @@ public abstract class Enemy : MonoBehaviour
     {
         audioSource.PlayOneShot(deathSound);
         Destroy(gameObject);
+    }
+
+    public void Movement()
+    {
+        rigidbody.MovePosition(Vector3.zero);
     }
 }
