@@ -13,6 +13,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] AudioClip spawnSound;
     [SerializeField] AudioClip deathSound;
     private AudioSource audioSource;
+    private float addForcePower = 140;
 
     public bool useMovement;
 
@@ -25,16 +26,12 @@ public abstract class Enemy : MonoBehaviour
 
         currentHealth = maxHealth;
 
-        if (useMovement)
+        if (!useMovement)
         {
-            Movement();
+            rigidbody.AddForce(transform.forward * speed * addForcePower);
         }
-        else
-        {
-            rigidbody.AddForce(transform.forward * speed);
-        } 
-
     }
+
 
     public void TakeDamage(float damage)
     {
@@ -51,8 +48,18 @@ public abstract class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void Movement()
+    public void MoveTowardsPoint(Vector3 point)
+    { 
+        Vector3 direction = point - transform.position;
+        direction = direction.normalized;
+        rigidbody.MovePosition(transform.position + direction * Time.deltaTime * speed);
+    }
+
+    public float DistanceTowardsPoint(Vector3 point)
     {
-        rigidbody.MovePosition(Vector3.zero);
+        Vector3 direction = point - transform.position;
+        float distance = direction.magnitude;
+
+        return distance;
     }
 }
