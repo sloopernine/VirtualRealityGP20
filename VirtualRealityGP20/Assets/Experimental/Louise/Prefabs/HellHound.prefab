@@ -51,9 +51,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 300
   currentHealth: 100
-  speed: 700
+  speed: 5
   spawnSound: {fileID: 8300000, guid: 918ee1b51fd32d748a66d520586569ba, type: 3}
   deathSound: {fileID: 8300000, guid: 1dfef04d7ab9ced4093c828025f5bf06, type: 3}
+  useMovement: 1
+  minDistanceToPlayer: 1.11
 --- !u!54 &1781821687837907847
 Rigidbody:
   m_ObjectHideFlags: 0
