@@ -1,12 +1,6 @@
+using System;
+using TMPro;
 using UnityEngine;
-
-public enum Spell
-{
-    Fireball,
-    Teleport,
-    CreateRock,
-
-}
 
 public class SpellCastOrigin : MonoBehaviour
 {
@@ -15,6 +9,42 @@ public class SpellCastOrigin : MonoBehaviour
     public GameObject RockPrefab;
 
     public Spell currentSpell;
+
+    private MeshRenderer meshRenderer;
+    private TextMeshPro tmp;
+
+    private void Start()
+    {
+        meshRenderer = GetComponent<MeshRenderer>();
+        tmp = GetComponentInChildren<TextMeshPro>();
+        switch (currentSpell)
+        {
+            case Spell.Fireball:
+                SetVisuals(Color.red);
+                tmp.text = "Fire";
+                break;
+            case Spell.Teleport:
+                SetVisuals(Color.magenta);
+                tmp.text = "Teleport";
+
+                break;
+            case Spell.CreateRock:
+                SetVisuals(Color.gray);
+                tmp.text = "Rock";
+
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    private void SetVisuals(Color c)
+    {
+        c.a = 0.5f;
+        meshRenderer.material.color = c;
+        //tmp.rectTransform.rotation = transform.rotation;
+    }
 
     public void CastSpell(Vector3 position)
     {

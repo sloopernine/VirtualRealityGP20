@@ -112,8 +112,7 @@ public class SpellConjuror : MonoBehaviour
         SpellCastOrigin spellCastOrigin = Instantiate(spellBallPrefab).GetComponent<SpellCastOrigin>();
         spellCastOrigin.currentSpell = currentSpell;
         spellCastOrigin.transform.position = transform.position + transform.forward;
-        spellCastOrigin.transform.rotation = new Quaternion(0, transform.rotation.y, 0f, 0f);
-
+        spellCastOrigin.transform.LookAt(transform.position);
 
     }
 
