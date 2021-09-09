@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: d1c3109bdb54ad54c8a2b2838528e640
+    path: Assets/Experimental/Robin/HDR Test.unity
+    guid: e6ebfc56328b8a647a222a532cf241e5
   m_configObjects:
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: cfb73a1140198d84fb01a2bc23bb42f1, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c7821ccc975851a45bc9d672aca1a1f3, type: 2}
