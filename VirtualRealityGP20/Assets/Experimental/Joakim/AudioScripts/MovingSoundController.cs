@@ -2,29 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionSoundController : MonoBehaviour
+
+public class MovingSoundController : MonoBehaviour
 {
-    private static CollisionSoundController instance;
-    public static CollisionSoundController Instance { get => instance;}
+    private static MovingSoundController instance;
+    public static MovingSoundController Instance { get => instance; }
 
     //public CollisionSoundList sounds;
 
     [Tooltip("The max number of sounds (AudioSources) allowed to play. This many Audiosources are created in Awake")]
     [SerializeField] int voicePoolSize = 24;
 
-    [Tooltip("Collision sounds that will produce an impact with a volume lower than this number won't play")]
-    [SerializeField] float minCollisionVolume = 0.1f;
-    public float MinCollisionVolume { get => minCollisionVolume; set => minCollisionVolume = value; }
-    
-    [SerializeField] float maxCollisionVelocity = 5;
-    public float MaxCollisionVelocity { get => maxCollisionVelocity; set => maxCollisionVelocity = value; }
-
     private List<AudioSource> audioSources;
     [SerializeField] GameObject audioSourcePrefab;
 
-    private readonly string collisionSoundsPath = "CollisionSounds";
+    private readonly string movingSoundsPath = "MovingSounds";
 
-    private Dictionary<CollisionSoundMaterial, List<AudioClip>> soundLibrary;
+    private Dictionary<MovingSounds, List<AudioClip>> soundLibrary;
 
 
     private void Awake()
@@ -48,14 +42,14 @@ public class CollisionSoundController : MonoBehaviour
             s.transform.parent = this.transform;
         }
 
-        soundLibrary = new Dictionary<CollisionSoundMaterial, List<AudioClip>>();
+        soundLibrary = new Dictionary<MovingSounds, List<AudioClip>>();
         LoadSoundLibrary();
 
     }
 
     private void LoadSoundLibrary()
     {
-        AudioClip[] clips = Resources.LoadAll<AudioClip>(collisionSoundsPath);
+        AudioClip[] clips = Resources.LoadAll<AudioClip>(movingSoundsPath);
         for (int index = 0; index < clips.Length; index++)
         {
             string name = clips[index].name;
@@ -63,11 +57,11 @@ public class CollisionSoundController : MonoBehaviour
             if (dividerIndex >= 0)
                 name = name.Substring(0, dividerIndex);
 
-            bool defined = System.Enum.IsDefined(typeof(CollisionSoundMaterial), name);
+            bool defined = System.Enum.IsDefined(typeof(MovingSounds), name);
 
             if (defined)
             {
-                CollisionSoundMaterial mat = (CollisionSoundMaterial)System.Enum.Parse(typeof(CollisionSoundMaterial), name);
+                MovingSounds mat = (MovingSounds)System.Enum.Parse(typeof(MovingSounds), name);
                 if (soundLibrary.ContainsKey(mat) == false || soundLibrary[mat] == null)
                 {
                     soundLibrary[mat] = new List<AudioClip>();
@@ -82,18 +76,18 @@ public class CollisionSoundController : MonoBehaviour
         }
     }
 
-    public void Play(CollisionSoundMaterial mat, Vector3 position, float impactVolume = 1f)
+    public void Play(MovingSounds mat, Transform newParent, float impactVolume = 1f)
     {
         if (!soundLibrary.ContainsKey(mat))
         {
-            Debug.LogError("[SoundSystem] CollisionSound: Trying to play sound for material without a clip. Need a clip at: " + collisionSoundsPath + "/" + mat.ToString());
-            mat = CollisionSoundMaterial._default;
+            Debug.LogError("[SoundSystem] MovingSound: Trying to play sound for material without a clip. Need a clip at: " + movingSoundsPath + "/" + mat.ToString());
+            mat = MovingSounds._default;
             return;
         }
 
         AudioSource source = GetIdleAudioSource();
         source.clip = soundLibrary[mat][Random.Range(0, soundLibrary[mat].Count)];
-        source.transform.position = position;
+        source.transform.parent = newParent;
         source.pitch = Random.Range(0.7f, 1.3f);
         source.Play();
 
@@ -111,6 +105,4 @@ public class CollisionSoundController : MonoBehaviour
         return s;
 
     }
-
-
 }
