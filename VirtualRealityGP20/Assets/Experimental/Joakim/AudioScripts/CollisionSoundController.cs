@@ -104,7 +104,7 @@ public class CollisionSoundController : MonoBehaviour
         {
             return audioSources.Find(source => !source.isPlaying);
         }
-        AudioSource s = Instantiate<GameObject>(audioSourcePrefab).GetComponent<AudioSource>();
+        AudioSource s = Instantiate(audioSourcePrefab).GetComponent<AudioSource>();
         audioSources.Add(s);
         Debug.LogWarning("[SoundSystem] CollisionSound: No idle audioSource found, adding new one. Consider increasing VoicePoolSize");
 
